@@ -1,0 +1,83 @@
+<!-- templates/email/verification_email.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaVault Email Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #f4f4f4;
+        }
+        .header h1 {
+            color: #333333;
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px 0;
+            text-align: center;
+        }
+        .verification-code {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 2px solid #f4f4f4;
+            color: #666666;
+            font-size: 12px;
+        }
+        .expire-notice {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>MediaVault</h1>
+        </div>
+        <div class="content">
+            <h2>Verify Your Email</h2>
+            <p>Hello!</p>
+            <p>Thank you for registering with MediaVault. To complete your registration, please use the following verification code:</p>
+            <div class="verification-code">
+                {{ verification_code }}
+            </div>
+            <p class="expire-notice">This code will expire in 10 minutes.</p>
+            <p>If you didn't request this verification code, please ignore this email.</p>
+        </div>
+        <div class="footer">
+            <p>This is an automated message, please do not reply to this email.</p>
+            <p>&copy; {% now "Y" %} MediaVault. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

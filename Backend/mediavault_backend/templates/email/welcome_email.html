@@ -1,0 +1,92 @@
+<!-- templates/email/welcome_email.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MediaVault</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #f4f4f4;
+        }
+        .header h1 {
+            color: #333333;
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .feature-list {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+        .feature-list li {
+            margin-bottom: 10px;
+            color: #555555;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 2px solid #f4f4f4;
+            color: #666666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>MediaVault</h1>
+        </div>
+        <div class="content">
+            <h2>Welcome to MediaVault! 🎉</h2>
+            <p>Hello!</p>
+            <p>Thank you for joining MediaVault. Your account has been successfully verified and is now ready to use.</p>
+            
+            <h3>What you can do with MediaVault:</h3>
+            <ul class="feature-list">
+                <li>Upload and store your media files securely</li>
+                <li>Organize your content across different platforms</li>
+                <li>Access your media from anywhere</li>
+                <li>Share your content easily</li>
+            </ul>
+
+            <p>Get started by uploading your first file:</p>
+            <a href="{{ login_url }}" class="cta-button">Go to MediaVault</a>
+
+            <p>If you have any questions or need assistance, our support team is here to help.</p>
+        </div>
+        <div class="footer">
+            <p>This is an automated message, please do not reply to this email.</p>
+            <p>&copy; {% now "Y" %} MediaVault. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

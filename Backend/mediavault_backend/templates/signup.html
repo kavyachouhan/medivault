@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - MediaVault</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo h1 {
+            color: #2d3748;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo p {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+
+        .form-group .error {
+            color: #e53e3e;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .signup-btn:hover {
+            background: #3182ce;
+        }
+
+        .signup-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+
+        .verification-section {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .verification-code {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .verification-code input {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 1.2rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .terms {
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #718096;
+        }
+
+        .terms a {
+            color: #4299e1;
+            text-decoration: none;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            margin: 0 auto;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3182ce;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <!-- Initial Sign Up Form -->
+        <div class="signup-form">
+            <div class="logo">
+                <h1>MediaVault</h1>
+                <p>Store your media files securely</p>
+            </div>
+
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        placeholder="your@email.com"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    >
+                    <span class="error" id="emailError">Please enter a valid email address</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required 
+                        minlength="8"
+                        placeholder="Min. 8 characters"
+                    >
+                    <span class="error" id="passwordError">Password must be at least 8 characters</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        name="confirmPassword" 
+                        required 
+                        placeholder="Confirm your password"
+                    >
+                    <span class="error" id="confirmError">Passwords do not match</span>
+                </div>
+
+                <button type="submit" class="signup-btn">
+                    <span class="btn-text">Create Account</span>
+                    <div class="spinner"></div>
+                </button>
+            </form>
+
+            <div class="terms">
+                By signing up, you agree to our 
+                <a href="#">Terms of Service</a> and 
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+
+        <!-- Verification Code Section -->
+        <div class="verification-section" id="verificationSection">
+            <h2>Verify Your Email</h2>
+            <p>We've sent a verification code to your email. Please enter it below:</p>
+            
+            <div class="verification-code">
+                <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+            </div>
+
+            <button class="signup-btn" onclick="verifyCode()" style="margin-top: 1rem;">
+                Verify Code
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Client-side validation and form handling
+        const signupForm = document.getElementById('signupForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const verificationSection = document.getElementById('verificationSection');
+
+        // Handle verification code input
+        const verificationInputs = document.querySelectorAll('.verification-code input');
+        verificationInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value) {
+                    if (index < verificationInputs.length - 1) {
+                        verificationInputs[index + 1].focus();
+                    }
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    verificationInputs[index - 1].focus();
+                }
+            });
+        });
+
+        async function handleSignup(event) {
+            event.preventDefault();
+            
+            // Reset errors
+            document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
+            
+            // Validate passwords match
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                document.getElementById('confirmError').style.display = 'block';
+                return;
+            }
+
+            // Show loading state
+            const button = event.target.querySelector('.signup-btn');
+            const btnText = button.querySelector('.btn-text');
+            const spinner = button.querySelector('.spinner');
+            button.disabled = true;
+            btnText.style.display = 'none';
+            spinner.style.display = 'block';
+
+            try {
+                const response = await fetch('/api/register/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: emailInput.value,
+                        password: passwordInput.value,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Hide signup form and show verification section
+                    signupForm.style.display = 'none';
+                    verificationSection.style.display = 'block';
+                } else {
+                    throw new Error(data.message || 'Registration failed');
+                }
+            } catch (error) {
+                alert(error.message);
+            } finally {
+                // Reset button state
+                button.disabled = false;
+                btnText.style.display = 'block';
+                spinner.style.display = 'none';
+            }
+        }
+
+        async function verifyCode() {
+            const code = Array.from(verificationInputs).map(input => input.value).join('');
+            
+            try {
+                const response = await fetch('/api/verify-email/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: emailInput.value,
+                        code: code,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Email verified successfully!');
+                    window.location.href = '/login'; // Redirect to login page
+                } else {
+                    throw new Error(data.message || 'Verification failed');
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+    </script>
+</body>
+</html>
